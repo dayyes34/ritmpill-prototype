@@ -99,4 +99,4 @@ function generateBlocks(numBlocks, stepsPerBlock){
 }
 
 initializeData(4, 4);
-generateBlocks(4, 4);
+generateBlocks(3, 4);
