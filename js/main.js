@@ -20,7 +20,7 @@ const limbs = [
 
 // === ИНСТРУМЕНТЫ ===
 let instruments = [
-  { id: 1, name: "Kick",    limbs: ["RF", "LF"], imageUrl: "assets/img/kick.png",   audioUrl: "assets/sounds/kick.mp3" },
+  { id: 1, name: "Kick",    limbs: ["RF", "LF"], imageUrl: "./assets/img/kick.png",   audioUrl: "assets/sounds/kick.mp3" },
   { id: 2, name: "Snare",   limbs: ["R", "L"],   imageUrl: "assets/img/snare.png",  audioUrl: "assets/sounds/snare.mp3" },
   { id: 3, name: "HiHat",   limbs: ["L", "R"],   imageUrl: "assets/img/hihat.png",  audioUrl: "assets/sounds/hhcl.mp3" },
   { id: 4, name: "HHopen",  limbs: ["L", "R"],   imageUrl: "assets/img/hhop.png",   audioUrl: "assets/sounds/hhop.mp3" },
