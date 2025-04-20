@@ -16,7 +16,7 @@ html, body {
 #block-row {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-evenly;
   gap: var(--gap-block);
   width: 100%;
   box-sizing: border-box;
@@ -174,10 +174,159 @@ html, body {
     margin-bottom: 0;
     border-radius: 10px;
   }
+/*
+    //  }
   #block-row > .block:last-child:nth-child(4n+1),
   #block-row > .block:last-child:nth-child(4n+2),
   #block-row > .block:last-child:nth-child(4n+3) {
     margin-left: auto;
     margin-right: auto;
+  }*/
+
+
+  #instrument-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;     /* Центрирование панели! */
+    gap: 28px;
+    padding: 28px;
+    flex-wrap: wrap;
   }
+  
+  .instrument-btn {
+    width: 66px;
+    height: 66px;
+    background: #f8f9fa;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 12px #0001;
+    border: none;
+    margin: 0;
+    outline: none;
+    position: relative;
+    transition: box-shadow .2s, background .2s;
+  }
+  .instrument-btn.active {
+    background: #d1eafe;
+    box-shadow: 0 0 0 4px #239cfa44, 0 2px 18px #23b8e822;
+  }
+  .instrument-btn:hover:not(.active) {
+    background: #e6eeff;
+    box-shadow: 0 0 0 2px #aef3f466;
+  }
+  
+  .instrument-icon-large {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+    display: block;
+  }
+
+  .instrument-icon-small {
+    width: 36px;     /* или другой, подходящий размер под твои ячейки */
+    height: 36px;
+    object-fit: contain;
+    display: block;
+    pointer-events: none;
+    user-select: none;
+    }
+    
+  
+  #instrument-panel button {
+    font-size: 18px;
+    height: 44px;
+    margin-left: 16px;
+    border-radius: 10px;
+    padding: 0 18px;
+    background: #fafbfc;
+    border: 1px solid #dbeafe;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  #instrument-panel button:hover {
+    background: #e6f0ff;
+  }
+  .cell-instrument-icon {margin-right:0;}
+.shake {animation: shake .3s;}
+@keyframes shake { 0%{transform:translateX(0)} 25%{transform:translateX(-3px)} 50%{transform:translateX(3px)} 100%{transform:translateX(0)} }
+#controls {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  margin-bottom: 20px;
+  background: #191813;
+  border-radius: 10px;
+  padding: 10px 18px 8px 16px;
+  box-shadow: 0 2px 8px #00000022;
+}
+
+/* Стили label */
+#controls label {
+  color: #ffcf6b;
+  font-weight: 600;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  letter-spacing: 0.04em;
+  margin: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Стили select */
+#controls select {
+  margin-left: 8px;
+  background: #2b2518;
+  color: #f4cc88;
+  border: 2px solid #ffcf6b;
+  border-radius: 7px;
+  padding: 7px 32px 7px 10px;    /* Справа место под стрелку */
+  font-size: clamp(1rem, 1.6vw, 1.18rem);
+  font-weight: 600;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: none;
+  box-shadow: 0 1px 6px #00000029;
+  transition: border .15s, box-shadow .13s;
+  min-width: 66px;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+#controls select:focus {
+  border-color: #ffd54d;
+  box-shadow: 0 2px 12px #ffd54d33;
+}
+
+/* Красим option */
+#controls option {
+  background: #232017;
+  color: #ffcf6b;
+}
+
+/* Кастомная стрелочка ▼ с помощью псевдоэлемента */
+#controls label::after {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 7px 5px 0 5px;
+  border-style: solid;
+  border-color: #ffcf6b transparent transparent transparent;
+  z-index: 3;
+}
+
+/* При фокусе стрелка ярче */
+#controls select:focus ~ ::after,
+#controls select:hover ~ ::after {
+  border-top-color: #ffd54d;
 }

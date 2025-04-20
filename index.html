@@ -7,7 +7,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-  <div id="block-row"></div>
+  <div id="controls" style="margin-bottom:20px;">
+    <label>
+      Размер упражнения:
+      <select id="time-signature">
+        <option value="1">1/4</option>
+        <option value="2">2/4</option>
+        <option value="3">3/4</option>
+        <option value="4" selected>4/4</option>
+        <option value="5">5/4</option>
+      </select>
+    </label>
+    <label style="margin-left:24px">
+      Длительность клетки:
+      <select id="note-length">
+        <option value="4">1/4</option>
+        <option value="8">1/8</option>
+        <option value="16">1/16</option>
+      </select>
+    </label>
+  </div>
+  
+  <div id="instrumentpanel"></div>
+  <div id="blockrow"></div>
+  <!-- остальной html -->
+  
+    <div id="instrument-panel"></div>
+    <div class="block-row" id="block-row"></div>
   <script src="js/main.js"></script> 
  </body>
 </html>
