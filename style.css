@@ -1,0 +1,183 @@
+:root {
+  --gap-block: 22px;    /* минимальный отступ между блоками даже на микроэкране */
+  --gap-inner: 9px;
+  --side-padding: 3vw;  /* для десктопов и таблетов */
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-height: 100%;
+  background: #161513;
+  font-family: 'Press Start 2P', Arial, sans-serif;
+}
+
+#block-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--gap-block);
+  width: 100%;
+  box-sizing: border-box;
+  /* боковой отступ-для-дыхания, даже на маленьких ширинах */
+  padding: 36px var(--side-padding) 18px var(--side-padding);
+}
+
+.block {
+  background: #181717;
+  border: 2px solid #ffcf6b;
+  border-radius: 10px; /* фиксированное скругление на ЛЮБОМ экране */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* Уменьшаем min/max-width чтобы даже при сближении был отступ! */
+  min-width: 180px;
+  max-width: 325px;
+  padding: 18px 16px 22px 16px;
+  margin: 0;
+  box-sizing: border-box;
+  position: relative;
+  /* Количество в ряду управляется flex-basis + адаптив */
+  flex: 1 1 280px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-inner);
+  margin-bottom: 10px;
+  width: 100%;
+}
+.row:last-child { margin-bottom: 0; }
+
+.cell {
+  width: clamp(34px, 7vw, 52px); /* чуть ужали на мобиле — отступ всегда будет! */
+  aspect-ratio: 1 / 1;
+  background: #181717;
+  border: 2px solid #ffcf6b;
+  border-radius: 5px;
+  font-size: clamp(1.08rem, 2.6vw, 1.5rem);
+  color: #f4cc88;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  user-select: none;
+  cursor: pointer;
+  transition: background 0.13s, border 0.18s, color 0.13s;
+}
+.cell.filled  { background: #ff934d; color: #fff; border-color: #ffb13f; }
+.cell.cell-muted { opacity: .32; filter: grayscale(.7) brightness(1.1); }
+
+/* всегда квадратная сетка! */
+.cell:last-child { margin-right: 0; }
+
+.hand-icon {
+  flex: 0 0 auto;
+  width: clamp(25px, 5vw, 36px);
+  aspect-ratio: 1 / 1;
+  background: #343c4a;
+  color: #ffcf6b;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(0.98rem, 2vw, 1.25rem);
+  border-radius: 6px;
+  margin-right: clamp(5px, 2vw, 10px);
+  cursor: pointer;
+  transition: background 0.14s, color 0.14s, filter 0.14s;
+  user-select: none;
+  box-sizing: border-box;
+}
+.hand-icon.muted { opacity: .33; filter: grayscale(.8) brightness(1.2); }
+
+.hand-icon-R  { background: #ef574b; color: #fff; }
+.hand-icon-L  { background: #237ca3; color: #fff; }
+.hand-icon-RF { background: #23a385; color: #fff; }
+.hand-icon-LF { background: #aa65e8; color: #fff; }
+
+.block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 13px;
+  gap: 7px;
+}
+
+.block-number {
+  font-size: clamp(1.7rem, 2.65vw, 2.8rem);
+  color: #fff;
+  font-weight: bold;
+  font-family: inherit;
+}
+
+.loop-btn {
+  font-size: clamp(0.98rem, 1.7vw, 1.16rem);
+  padding: 7px 13px;
+  border-radius: 7px;
+  border: 1px solid #5e5141;
+  background: #2d2616;
+  font-weight: 700;
+  color: #ffcf6b;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: background 0.13s, color 0.13s;
+}
+.loop-btn.active {
+  background: #ffd54d;
+  border-color: #aa8c00;
+  color: #191800;
+}
+
+/* МОБИЛЬНАЯ: 2 блока в ряд, gap не меньше! */
+@media (max-width: 899px) {
+  :root {
+    --gap-block: 13px;
+    --side-padding: 2vw;
+  }
+  #block-row {
+    gap: var(--gap-block);
+    padding: 16px var(--side-padding) 10px var(--side-padding);
+  }
+  .block {
+    flex: 0 1 calc(50% - var(--gap-block));
+    max-width: calc(50% - var(--gap-block));
+    min-width: 120px;
+    margin: 0;     /* нет склейки */
+    border-radius: 10px;
+    box-sizing: border-box;
+  }
+  #block-row > .block:only-child {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 96vw;
+    flex-basis: 96vw;
+  }
+}
+/* для совсем маленьких, чтобы не прижимались */
+@media (max-width: 599px) {
+  :root { --side-padding: 1.5vw; --gap-block: 7px; }
+  #block-row { padding: 8px var(--side-padding) 8px var(--side-padding); }
+  .block { min-width: 0; max-width: 98vw; width: 96vw; border-radius: 10px; }
+}
+
+/* десктоп — 4 в строке, одиночные по центру */
+@media (min-width: 900px) {
+  .block {
+    flex: 0 1 calc(25% - var(--gap-block));
+    max-width: calc(25% - var(--gap-block));
+    min-width: 180px;
+    margin-bottom: 0;
+    border-radius: 10px;
+  }
+  #block-row > .block:last-child:nth-child(4n+1),
+  #block-row > .block:last-child:nth-child(4n+2),
+  #block-row > .block:last-child:nth-child(4n+3) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

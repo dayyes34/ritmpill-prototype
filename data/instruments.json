@@ -1,0 +1,17 @@
+[
+    {
+      "id": "kick",
+      "name": "Бочка",
+      "limbs": ["RF", "LF"],
+      "image": "assets/img/kick.png",
+      "audio": "assets/audio/kick.mp3"
+    },
+    {
+      "id": "snare",
+      "name": "Снэр",
+      "limbs": ["R", "L"],
+      "image": "assets/img/snare.png",
+      "audio": "assets/audio/snare.mp3"
+    }
+  ]
+  
