@@ -25,14 +25,14 @@ html, body {
 
 .block {
   background: #181717;
-  border: 2px solid #ffcf6b;
+  border: 0px solid #ffcf6b;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   min-width: 180px;
   max-width: 325px;
-  padding: 18px 16px 22px 16px;
+  padding: 18px 1px 22px 1px;
   margin: 0;
   box-sizing: border-box;
   position: relative;
@@ -51,11 +51,12 @@ html, body {
 .row:last-child { margin-bottom: 0; }
 
 .cell {
-  width: clamp(34px, 7vw, 52px);
+  flex: 0 0 auto;
+  width: clamp(28px, 7vw, 52px);
   aspect-ratio: 1 / 1;
   background: #181717;
   border: 2px solid #ffcf6b;
-  border-radius: 5px;
+  border-radius: 1px;
   font-size: clamp(1.08rem, 2.6vw, 1.5rem);
   color: #f4cc88;
   font-weight: bold;
@@ -69,7 +70,7 @@ html, body {
 }
 
 .cell.filled   { background: #ff934d; color: #fff; border-color: #ffb13f; }
-.cell.muted    { opacity: .32; filter: grayscale(70%) brightness(1.1); }
+.cell-muted    { opacity: .32; filter: grayscale(70%) brightness(1.1); }
 
 .cell:last-child { margin-right: 0; }
 
@@ -92,29 +93,41 @@ html, body {
   box-sizing: border-box;
 }
 .hand-icon.muted { opacity: .33; filter: grayscale(80%) brightness(1.2); }
-.hand-icon.R  { background: #ef574b; color: #fff; }
-.hand-icon.L  { background: #237ca3; color: #fff; }
-.hand-icon.RF { background: #23a385; color: #fff; }
-.hand-icon.LF { background: #aa65e8; color: #fff; }
+.hand-icon-R  { background: #ef574b; color: #fff; }
+.hand-icon-L  { background: #237ca3; color: #fff; }
+.hand-icon-RF { background: #23a385; color: #fff; }
+.hand-icon-LF { background: #aa65e8; color: #fff; }
 
 .block-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   margin-bottom: 13px;
   gap: 7px;
 }
 
 .block-number {
-  font-size: clamp(1.7rem, 2.65vw, 2.8rem);
+  flex: 0 0 auto;
+  width: clamp(25px, 6vw, 38px);          /* по аналогии с .hand-icon, можно увеличить/уменьшить под дизайн */
+  aspect-ratio: 1 / 1;
+  background: #292621;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1rem, 2.2vw, 1.38rem); /* аналогично cell/hand */
   color: #fff;
   font-weight: bold;
   font-family: inherit;
+  margin-right: clamp(7px, 2vw, 15px);    /* как в .hand-icon */
+  user-select: none;
 }
 
 .loop-btn {
-  font-size: clamp(.98rem, 1.7vw, 1.16rem);
-  padding: 7px 13px;
+  flex: 0 0 auto;
+  width: clamp(25px, 6vw, 36px);           /* чуть шире кнопка чем .block-number для надписи "LOOP" */
+  aspect-ratio: 1 / 1;                  /* пусть будет немного шире, можно подобрать визуально — для слова LOOP */
+  padding: 0 clamp(34px, 2vw, 17px);       /* горизонтальный паддинг и 0 вертикального (квадратность/овальность сбалансировать) */
   border-radius: 7px;
   border: 1px solid #5e5141;
   background: #2d2616;
@@ -122,7 +135,12 @@ html, body {
   color: #ffcf6b;
   cursor: pointer;
   letter-spacing: 1px;
+  font-size: clamp(.98rem, 1.7vw, 1.16rem);
   transition: background .13s, color .13s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
 }
 .loop-btn.active {
   background: #ffd54d;
@@ -317,15 +335,15 @@ html, body {
 /* ---- мини-мобайл - 1 блок в ряд и увеличенный паддинг ---- */
 @media (max-width: 599px) {
   :root {
-    --side-padding: 15vw;
-    --gap-block: 7px;
+    --side-padding: 1vw;
+    --gap-block: 1px;
   }
   .block-row {
     padding: 8px var(--side-padding) 8px var(--side-padding);
   }
   .block {
-    min-width: 0;
-    max-width: 98vw;
+    min-width: 32vw;
+    max-width: 96vw;
     width: 96vw;
     border-radius: 10px;
   }
@@ -371,12 +389,12 @@ html, body {
     margin-bottom: 0;
     border-radius: 10px;
   }
-  .block-row > .block:last-child:nth-child(4n+1),
+  /*.block-row > .block:last-child:nth-child(4n+1),
   .block-row > .block:last-child:nth-child(4n+2),
   .block-row > .block:last-child:nth-child(4n+3) {
     margin-left: auto;
     margin-right: auto;
-  }
+  } */
 }
 
 /* ---------------------------------------------------- */

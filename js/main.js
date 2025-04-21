@@ -149,6 +149,7 @@ function generateBlocksUI() {
     block.dataset.b = b;
     block.style.display = (currentLoop === -1 || currentLoop === b) ? 'inline-block' : 'none';
 
+    
     // Шапка блока
     const header = document.createElement('div');
     header.className = 'block-header';
