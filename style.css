@@ -5,129 +5,72 @@
 }
 
 html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   min-height: 100%;
   background: #161513;
-  font-family: 'Press Start 2P', Arial, sans-serif;
+  font-family: "Press Start 2P", Arial, sans-serif;
 }
-
-.block-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  gap: var(--gap-block);
+.page-container {
   width: 100%;
+  max-width: 1200px; /* Или твоя ширина контента */
+  padding: 0 var(--side-padding);
   box-sizing: border-box;
-  padding: 36px var(--side-padding) 18px var(--side-padding);
 }
 
 .block {
   background: #181717;
-  border: 0px solid #ffcf6b;
   border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  min-width: 180px;
-  max-width: 325px;
-  padding: 18px 1px 22px 1px;
-  margin: 0;
+  padding: 0;
   box-sizing: border-box;
-  position: relative;
-  flex: 1 1 280px;
-}
-
-.row {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: var(--gap-inner);
-  margin-bottom: 10px;
-  width: 100%;
-}
-
-.row:last-child { margin-bottom: 0; }
-
-.cell {
-  flex: 0 0 auto;
-  width: clamp(28px, 7vw, 52px);
-  aspect-ratio: 1 / 1;
-  background: #181717;
-  border: 2px solid #ffcf6b;
-  border-radius: 1px;
-  font-size: clamp(1.08rem, 2.6vw, 1.5rem);
-  color: #f4cc88;
-  font-weight: bold;
-  display: flex;
+  display: grid;
   align-items: center;
   justify-content: center;
-  box-sizing: border-box;
-  user-select: none;
-  cursor: pointer;
-  transition: background .13s, border .18s, color .13s;
+  grid-template-rows: auto 1fr;
+  gap: 0px;
+
+  /* вот важная новая строчка */
+  width: fit-content;
+  max-width: 100%; /* защитит от выхода за пределы экрана */
 }
 
-.cell.filled   { background: #ff934d; color: #fff; border-color: #ffb13f; }
-.cell-muted    { opacity: .32; filter: grayscale(70%) brightness(1.1); }
-
-.cell:last-child { margin-right: 0; }
-
-.hand-icon {
-  flex: 0 0 auto;
-  width: clamp(25px, 5vw, 36px);
-  aspect-ratio: 1 / 1;
-  background: #343c4a;
-  color: #ffcf6b;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: clamp(0.98rem, 2vw, 1.25rem);
-  border-radius: 6px;
-  margin-right: clamp(5px, 2vw, 10px);
-  cursor: pointer;
-  transition: background .14s, color .14s, filter .14s;
-  user-select: none;
+/* Чтобы блоки были в центре ячейки родителя, это нужно тоже указать явно */
+.block-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* твоя установка, она нормальная */
+  gap: var(--gap-block);
+  padding: 36px var(--side-padding) 18px var(--side-padding);
   box-sizing: border-box;
+  align-items: start; /* start лучше для вертикальной центровки блоков в одном ряду */
+  justify-items: center; /* центрируем блоки внутри колонок родителя */
 }
-.hand-icon.muted { opacity: .33; filter: grayscale(80%) brightness(1.2); }
-.hand-icon-R  { background: #ef574b; color: #fff; }
-.hand-icon-L  { background: #237ca3; color: #fff; }
-.hand-icon-RF { background: #23a385; color: #fff; }
-.hand-icon-LF { background: #aa65e8; color: #fff; }
 
 .block-header {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
   margin-bottom: 13px;
   gap: 7px;
 }
 
 .block-number {
-  flex: 0 0 auto;
-  width: clamp(25px, 6vw, 38px);          /* по аналогии с .hand-icon, можно увеличить/уменьшить под дизайн */
+  width: clamp(25px, 6vw, 38px);
   aspect-ratio: 1 / 1;
   background: #292621;
   border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: clamp(1rem, 2.2vw, 1.38rem); /* аналогично cell/hand */
+  font-size: clamp(1rem, 2.2vw, 1.38rem);
   color: #fff;
   font-weight: bold;
-  font-family: inherit;
-  margin-right: clamp(7px, 2vw, 15px);    /* как в .hand-icon */
   user-select: none;
 }
-
 .loop-btn {
-  flex: 0 0 auto;
-  width: clamp(25px, 6vw, 36px);           /* чуть шире кнопка чем .block-number для надписи "LOOP" */
-  aspect-ratio: 1 / 1;                  /* пусть будет немного шире, можно подобрать визуально — для слова LOOP */
-  padding: 0 clamp(34px, 2vw, 17px);       /* горизонтальный паддинг и 0 вертикального (квадратность/овальность сбалансировать) */
+  width: clamp(25px, 6vw, 36px);
+  aspect-ratio: 1 / 1;
+  padding: 0 clamp(3px, 2vw, 17px);
   border-radius: 7px;
   border: 1px solid #5e5141;
   background: #2d2616;
@@ -135,18 +78,94 @@ html, body {
   color: #ffcf6b;
   cursor: pointer;
   letter-spacing: 1px;
-  font-size: clamp(.98rem, 1.7vw, 1.16rem);
+  font-size: clamp(0.98rem, 1.7vw, 1.16rem);
   transition: background .13s, color .13s;
   display: flex;
   align-items: center;
   justify-content: center;
   user-select: none;
 }
+
 .loop-btn.active {
   background: #ffd54d;
   border-color: #aa8c00;
   color: #191800;
 }
+
+/* Общие стили row и cell (общие настройки) */
+.row {
+  display: grid;
+  grid-template-columns: auto repeat(5, minmax(40px, 1fr));
+  align-items: center;
+  row-gap: 25px;       /* вертикальный промежуток между рядами (по вкусу больше) */
+  column-gap: 5px;     /* горизонтальный промежуток между столбцами (меньше) */
+}
+
+
+.cell {
+  background-color: #2a2a2a;
+  border: 2px solid #555;
+  aspect-ratio: 1 / 1;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  user-select: none;
+  cursor: pointer;
+  font-size: clamp(1rem, 2vw, 1.2rem); /* упрощён размер шрифта */
+  font-weight: bold;
+  color: #f4cc88;
+  transition: background .13s, border .18s, color .13s;
+}
+.row-righthand .cell.filled {
+  background-color: rgba(239,87,75,0.15);
+  border-color: #EF574B;
+}
+.row-lefthand .cell.filled {
+  background-color: rgba(35,124,163,0.15);
+  border-color: #237CA3;
+}
+.row-rightfoot .cell.filled {
+  background-color: rgba(35,163,133,0.15);
+  border-color: #23A385;
+}
+.row-leftfoot .cell.filled {
+  background-color: rgba(170,101,232,0.15);
+  border-color: #AA65E8;
+}
+
+
+/*.cell.filled   { background: #ff934d; color: #fff; border-color: #ffb13f; }*/
+.cell-muted    { opacity: .32; filter: grayscale(70%) brightness(1.1); }
+
+.cell:last-child { margin-right: 0; }
+
+
+.hand-icon {
+  width: clamp(25px, 5vw, 36px); /* Размер адаптивен – не конфликтует с гридом, т.к. колонка auto */
+  aspect-ratio: 1 / 1;
+  background: #343c4a;
+  color: #ffcf6b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(0.98rem, 2vw, 1.25rem);
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  transition: background .2s, color .2s;
+  box-sizing: border-box; /* добавлено на всякий случай */
+}
+
+/* Цветные варианты иконок */
+.hand-icon.R  { background: #ef574b; color: #ffffff; }
+.hand-icon.L  { background: #237ca3; color: #ffffff; }
+.hand-icon.RF { background: #23a385; color: #ffffff; }
+.hand-icon.LF { background: #aa65e8; color: #ffffff; }
+
+
+
 
 /* ----------------- Контролы ----------------- */
 #controls,
@@ -304,97 +323,43 @@ html, body {
   animation: shake 0.3s;
 }
 
-/* =================== МЕДИАЗАПРОСЫ =================== */
-
-/* ---- 2 блока в ряд, меньше отступы ---- */
+/* Responsive адаптивность */
 @media (max-width: 899px) {
-  :root {
-    --gap-block: 13px;
-    --side-padding: 2vw;
-  }
+  :root { --gap-block: 13px; }
+
   .block-row {
-    gap: var(--gap-block);
-    padding: 16px var(--side-padding) 10px var(--side-padding);
-  }
-  .block {
-    flex: 0 1 calc(50% - var(--gap-block));
-    max-width: calc(50% - var(--gap-block));
-    min-width: 120px;
-    margin: 0;
-    border-radius: 10px;
-    box-sizing: border-box;
-  }
-  .block-row > .block:only-child {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 96vw;
-    flex-basis: 96vw;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0px var(--side-padding);
   }
 }
 
-/* ---- мини-мобайл - 1 блок в ряд и увеличенный паддинг ---- */
 @media (max-width: 599px) {
-  :root {
-    --side-padding: 1vw;
-    --gap-block: 1px;
-  }
+  :root { --gap-block: 10px; }
+  
+  align-items: center; /* горизонтальное выравнивание по центру */
+  justify-content: center;
   .block-row {
-    padding: 8px var(--side-padding) 8px var(--side-padding);
-  }
-  .block {
-    min-width: 32vw;
-    max-width: 96vw;
-    width: 96vw;
-    border-radius: 10px;
+    grid-template-columns: 2fr;
+    padding: 0px var(--side-padding);
   }
 
-  /* Исправления размеров для инструментальной панели и иконок */
-
-  .instrument-icon-small {
-    width: 20px;
-    height: 20px;
-  }
-
-  /* Меню select и controls background/color fix */
-  #controls,
   .controls {
-    padding: 8px 6vw;
-    background: #191813;
-    gap: 12px;
     flex-wrap: wrap;
+    gap: 12px;
+    padding: 8px 6vw;
   }
-  #controls label,
-  .controls label {
-    color: #ffcf6b;
-    font-size: 1rem;
-    gap: 4px;
-  }
-  #controls select,
-  .controls select {
-    color: #f4cc88;
-    background: #2b2518;
-    border-color: #ffcf6b;
-    font-size: 1rem;
-    padding: 5px 24px 5px 8px;
-    min-width: 38px;
+  .page-container {
+    padding: 0 10px;
   }
 }
 
-/* ---- Десктоп 4 в ряд, центрирование одиночных ---- */
-@media (min-width: 900px) {
-  .block {
-    flex: 0 1 calc(25% - var(--gap-block));
-    max-width: calc(25% - var(--gap-block));
-    min-width: 180px;
-    margin-bottom: 0;
-    border-radius: 10px;
-  }
-  /*.block-row > .block:last-child:nth-child(4n+1),
-  .block-row > .block:last-child:nth-child(4n+2),
-  .block-row > .block:last-child:nth-child(4n+3) {
-    margin-left: auto;
-    margin-right: auto;
-  } */
+
+/* Центрирование отдельных блоков */
+.block-row .block:only-child,
+.block-row .block:last-child:nth-child(4n-1),
+.block-row .block:last-child:nth-child(4n-2),
+.block-row .block:last-child:nth-child(4n-3) {
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* ---------------------------------------------------- */

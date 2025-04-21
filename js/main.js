@@ -178,9 +178,18 @@ function generateBlocksUI() {
     rowsToShow.forEach((limb, rIndex) => {
       const r = limbs.findIndex(l => l.code === limb.code);
       const row = document.createElement('div');
-      row.className = 'row';
+      // добавляем уникальный класс для конечности:
+      let limbClass = '';
+      switch(limb.code) {
+        case 'R':  limbClass = 'row-righthand'; break;
+        case 'L':  limbClass = 'row-lefthand'; break;
+        case 'RF': limbClass = 'row-rightfoot'; break;
+        case 'LF': limbClass = 'row-leftfoot'; break;
+      }
+      row.className = `row ${limbClass}`;
       row.dataset.r = r;
       row.dataset.limb = limb.code;
+      
 
       const icon = document.createElement('div');
       icon.className = limb.iconClass;
