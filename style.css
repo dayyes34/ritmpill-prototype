@@ -20,31 +20,30 @@ html, body {
   box-sizing: border-box;
 }
 
+.block-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  row-gap: 10px; /* вертикальное расстояние между строками (подбери по вкусу) */
+  column-gap: 0px; /* ← у
+  padding: 36px var(--side-padding) 18px var(--side-padding);
+  box-sizing: border-box;
+  justify-content: center; /* оставляем на десктопе */
+  align-items: start;
+  justify-items: center;
+}
+
 .block {
   background: #181717;
   border-radius: 10px;
-  padding: 0;
+  padding: 0px;
   box-sizing: border-box;
   display: grid;
   align-items: center;
   justify-content: center;
   grid-template-rows: auto 1fr;
   gap: 0px;
-
-  /* вот важная новая строчка */
   width: fit-content;
-  max-width: 100%; /* защитит от выхода за пределы экрана */
-}
-
-/* Чтобы блоки были в центре ячейки родителя, это нужно тоже указать явно */
-.block-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* твоя установка, она нормальная */
-  gap: var(--gap-block);
-  padding: 36px var(--side-padding) 18px var(--side-padding);
-  box-sizing: border-box;
-  align-items: start; /* start лучше для вертикальной центровки блоков в одном ряду */
-  justify-items: center; /* центрируем блоки внутри колонок родителя */
+  max-width: 50%;
 }
 
 .block-header {
@@ -329,20 +328,24 @@ html, body {
 
   .block-row {
     grid-template-columns: repeat(2, 1fr);
-    padding: 0px var(--side-padding);
+    padding: 30px 10px; /* ← минимизируем боковой отступ (10px) */
+    justify-content: start; 
+    justify-items: start; /* добавь обязательно и это — выравнивание самих блоков к левой границе */
   }
 }
+
 
 @media (max-width: 599px) {
   :root { --gap-block: 10px; }
   
-  align-items: center; /* горизонтальное выравнивание по центру */
-  justify-content: center;
+  align-items: left; /* горизонтальное выравнивание по центру */
+  justify-content: start;
   .block-row {
-    grid-template-columns: 2fr;
-    padding: 0px var(--side-padding);
+    grid-template-columns: 1fr; /* ← одна колонка, занимай всю доступную ширину! */
+    padding: 20px 8px; /* ← минимальный padding */
+    justify-content: start;
+    justify-items: start;
   }
-
   .controls {
     flex-wrap: wrap;
     gap: 12px;
@@ -351,6 +354,8 @@ html, body {
   .page-container {
     padding: 0 10px;
   }
+
+
 }
 
 
